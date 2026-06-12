@@ -1,0 +1,1043 @@
+
+
+<html class="translated-ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+:root {
+    --green:#22C55E; --green-dark:#15803d;
+    --bg:#060d0a; --card:#111f16; --border:rgba(34,197,94,.12); --border-h:rgba(34,197,94,.35);
+    --text:#f3f4f6; --muted:#6b7280;
+}
+body, html {
+    background: #060d0a !important;
+    margin: 0;
+    padding: 0;
+}
+#usersPage { font-family:'DM Sans',sans-serif; background:var(--bg); min-height:100vh; color:var(--text); }
+#main { padding:32px 28px 48px; max-width:1400px; margin:0 auto; }
+
+.section-label { font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--green); margin-bottom:6px; }
+.section-title { font-family:'Syne',sans-serif; font-size:26px; font-weight:800; color:#fff; line-height:1.15; }
+
+.mini-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:20px 0; }
+.mini-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:16px 18px; display:flex; align-items:center; gap:14px; }
+.mini-icon { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.mini-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+.mini-val { font-family:'Syne',sans-serif; font-size:24px; font-weight:800; color:#fff; line-height:1.1; }
+
+.search-wrap { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:18px 20px; margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; }
+.search-input-wrap { position:relative; flex:1; min-width:200px; }
+.search-input-wrap i { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--green); font-size:13px; pointer-events:none; }
+.s-input { width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 14px 10px 40px; font-size:13px; font-family:'DM Sans',sans-serif; color:#fff; outline:none; transition:border-color .15s; }
+.s-input:focus { border-color:var(--green); }
+.s-input::placeholder { color:rgba(255,255,255,.2); }
+.s-btn { background:var(--green-dark); color:#fff; border:none; border-radius:12px; padding:10px 20px; font-size:13px; font-weight:700; cursor:pointer; transition:background .15s; font-family:'DM Sans',sans-serif; }
+.s-btn:hover { background:var(--green); }
+.s-clear { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:#9ca3af; border-radius:12px; padding:10px 16px; font-size:13px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:6px; transition:all .15s; }
+.s-clear:hover { color:#fff; background:rgba(255,255,255,.08); }
+
+.panel { background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden; }
+.panel-head { padding:16px 22px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.panel-head h2 { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px; }
+.panel-head span { font-size:11px; color:var(--muted); font-weight:600; }
+
+table { width:100%; border-collapse:collapse; }
+thead tr { background:rgba(0,0,0,.3); }
+th { padding:12px 18px; text-align:left; font-size:10px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+tbody tr { border-bottom:1px solid rgba(255,255,255,.04); transition:background .15s; }
+tbody tr:hover { background:rgba(255,255,255,.025); }
+td { padding:14px 18px; font-size:13px; color:#d1d5db; }
+
+.u-name { font-weight:700; color:#fff; font-size:13px; }
+.u-email { font-size:11px; color:var(--muted); margin-top:1px; }
+
+.rank-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
+.rank-final    { background:rgba(34,197,94,.12);  border:1px solid rgba(34,197,94,.25);  color:#4ade80; }
+.rank-wholesale{ background:rgba(250,204,21,.12); border:1px solid rgba(250,204,21,.25); color:#facc15; }
+.rank-default  { background:rgba(156,163,175,.1); border:1px solid rgba(156,163,175,.2); color:#9ca3af; }
+
+.act-btn { width:32px; height:32px; border-radius:9px; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; font-size:13px; transition:all .15s; text-decoration:none; }
+.act-view { background:rgba(96,165,250,.12); color:#60a5fa; border:1px solid rgba(96,165,250,.25); }
+.act-view:hover { background:rgba(96,165,250,.25); }
+.act-del  { background:rgba(239,68,68,.12); color:#f87171; border:1px solid rgba(239,68,68,.25); }
+.act-del:hover  { background:rgba(239,68,68,.25); }
+
+.pag { display:flex; align-items:center; justify-content:center; gap:6px; padding:16px; flex-wrap:wrap; border-top:1px solid var(--border); }
+.pag-btn { display:inline-flex; align-items:center; justify-content:center; min-width:34px; height:34px; padding:0 10px; border-radius:9px; font-size:12px; font-weight:700; border:1px solid rgba(255,255,255,.1); color:#9ca3af; background:rgba(255,255,255,.04); text-decoration:none; transition:all .15s; }
+.pag-btn:hover { border-color:var(--green); color:var(--green); }
+.pag-btn.active { background:var(--green); color:#fff; border-color:var(--green); }
+.pag-btn.disabled { opacity:.3; pointer-events:none; }
+
+.empty-state { text-align:center; padding:56px 20px; color:var(--muted); }
+.empty-state i { font-size:40px; opacity:.3; display:block; margin-bottom:12px; }
+.empty-state p { font-size:14px; }
+
+.fade-up { animation:fadeUp .4s ease both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.delay-1 { animation-delay:.07s; } .delay-2 { animation-delay:.14s; } .delay-3 { animation-delay:.21s; }
+
+/* MODAL */
+#userModal {
+    display:none; position:fixed; inset:0; z-index:999;
+    background:rgba(0,0,0,.7); backdrop-filter:blur(4px);
+    align-items:center; justify-content:center; padding:20px;
+}
+#userModal.open { display:flex; }
+#userModal .modal-box {
+    background:#111f16; border:1px solid rgba(34,197,94,.25);
+    border-radius:20px; width:100%; max-width:480px; overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.6);
+    animation:modalIn .2s ease;
+}
+@keyframes modalIn { from { opacity:0; transform:translateY(12px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+.modal-header { padding:20px 24px; border-bottom:1px solid rgba(34,197,94,.12); display:flex; align-items:center; justify-content:space-between; }
+.modal-body { padding:24px; display:grid; gap:12px; }
+.modal-footer { padding:16px 24px; border-top:1px solid rgba(34,197,94,.12); display:flex; justify-content:flex-end; }
+.modal-field { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:14px; }
+.modal-field-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:4px; }
+.modal-field-val { font-size:13px; color:#d1d5db; font-weight:600; }
+.modal-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.modal-close-btn { width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:#9ca3af; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+.modal-close-btn:hover { background:rgba(255,255,255,.1); color:#fff; }
+
+@media(max-width:900px) { .mini-stats { grid-template-columns:1fr 1fr; } }
+@media(max-width:768px) { #main { padding:20px 16px 40px; } .mini-stats { grid-template-columns:1fr 1fr; } }
+</style>
+
+<link type="text/css" rel="stylesheet" charset="UTF-8" href="./users_files/m=el_main_css"></head><body><div id="usersPage" class="-mx-4 sm:-mx-6 lg:-mx-8 -mt-6">
+
+    <link rel="stylesheet" href="../assets/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+:root {
+    --green:#22C55E; --green-dark:#15803d;
+    --bg:#060d0a; --card:#111f16; --border:rgba(34,197,94,.12); --border-h:rgba(34,197,94,.35);
+    --text:#f3f4f6; --muted:#6b7280;
+}
+#adminHeader {
+    background:rgba(6,13,10,.95); backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:100;
+    padding:0 28px; height:64px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    font-family:'DM Sans',sans-serif;
+}
+.ah-logo { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.ah-logo-dot { width:9px; height:9px; background:var(--green); border-radius:50%; box-shadow:0 0 8px rgba(34,197,94,.6); animation:pulse-dot 2.5s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{box-shadow:0 0 6px rgba(34,197,94,.5)} 50%{box-shadow:0 0 14px rgba(34,197,94,.9)} }
+.ah-logo-name { font-family:'Syne',sans-serif; font-size:19px; font-weight:800; color:#fff; }
+.ah-logo-badge { background:rgba(34,197,94,.15); border:1px solid var(--border-h); color:var(--green); font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:3px 10px; border-radius:20px; }
+
+.ah-nav { display:flex; align-items:center; gap:2px; flex:1; justify-content:center; }
+.ah-nav a { display:flex; align-items:center; gap:7px; padding:7px 14px; border-radius:10px; font-size:13px; font-weight:600; color:var(--muted); text-decoration:none; border:1px solid transparent; transition:all .18s; white-space:nowrap; }
+.ah-nav a:hover, .ah-nav a.active { color:var(--green); background:rgba(34,197,94,.08); border-color:var(--border); }
+
+.ah-actions { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.ah-user { display:flex; align-items:center; gap:8px; padding:5px 12px 5px 5px; background:rgba(34,197,94,.07); border:1px solid var(--border); border-radius:30px; }
+.ah-avatar { width:32px; height:32px; border-radius:50%; background:rgba(34,197,94,.18); border:1px solid var(--border-h); display:flex; align-items:center; justify-content:center; color:var(--green); font-size:13px; }
+.ah-user-name { font-size:12px; font-weight:700; color:#d1fae5; }
+.ah-btn-logout { display:flex; align-items:center; gap:7px; padding:8px 14px; background:transparent; border:1px solid rgba(255,255,255,.08); color:var(--muted); font-size:12px; font-weight:700; border-radius:10px; cursor:pointer; transition:all .18s; font-family:'DM Sans',sans-serif; text-decoration:none; }
+.ah-btn-logout:hover { border-color:rgba(239,68,68,.4); color:#f87171; background:rgba(239,68,68,.07); }
+
+/* ── Menú móvil ── */
+.ah-hamburger { display:none; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:10px; width:36px; height:36px; align-items:center; justify-content:center; color:var(--muted); cursor:pointer; font-size:16px; transition:all .18s; flex-shrink:0; }
+.ah-hamburger:hover { color:var(--green); border-color:var(--border); }
+
+#mobileNav {
+    display:none; flex-direction:column; gap:4px;
+    background:rgba(6,13,10,.98); border-bottom:1px solid var(--border);
+    padding:12px 16px; font-family:'DM Sans',sans-serif;
+}
+#mobileNav a { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:var(--muted); text-decoration:none; border:1px solid transparent; transition:all .18s; }
+#mobileNav a:hover, #mobileNav a.active { color:var(--green); background:rgba(34,197,94,.08); border-color:var(--border); }
+#mobileNav .mob-divider { height:1px; background:var(--border); margin:4px 0; }
+
+@media(max-width:900px) {
+    .ah-nav { display:none; }
+    .ah-hamburger { display:flex; }
+    .ah-logo-badge { display:none; }
+}
+@media(max-width:480px) {
+    #adminHeader { padding:0 14px; height:58px; }
+    .ah-user-name { display:none; }
+}
+</style>
+
+<header id="adminHeader">
+    <a href="http://127.0.0.1:8000/admin/dashboard" class="ah-logo">
+        <span class="ah-logo-dot"></span>
+        <span class="ah-logo-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Casatek</font></font></span>
+        <span class="ah-logo-badge"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Administración</font></font></span>
+    </a>
+
+    <nav class="ah-nav">
+        <a href="http://127.0.0.1:8000/admin/dashboard" class=""><i class="fa-solid fa-gauge-high"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Panel</font></font></a>
+        <a href="http://127.0.0.1:8000/admin/products" class=""><i class="fa-solid fa-box"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Productos</font></font></a>
+        <a href="http://127.0.0.1:8000/admin/orders" class=""><i class="fa-solid fa-clipboard-list"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Pedidos</font></font></a>
+        <a href="http://127.0.0.1:8000/admin/users" class="active"><i class="fa-solid fa-users"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Usuarios</font></font></a>
+    </nav>
+
+    <div class="ah-actions">
+        <div class="ah-user">
+            <div class="ah-avatar"><i class="fa-solid fa-circle-user"></i></div>
+            <span class="ah-user-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Hugo Camilo Cussi Suxo</font></font></span>
+        </div>
+        <form method="POST" action="http://127.0.0.1:8000/logout-admin">
+                        <button type="submit" class="ah-btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="hidden-xs"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Salir</font></font></span>
+            </button>
+        </form>
+        <button class="ah-hamburger" onclick="toggleMobileNav()" aria-label="Menú">
+            <i class="fa-solid fa-bars" id="hambIcon"></i>
+        </button>
+    </div>
+</header>
+
+<nav id="mobileNav">
+    <a href="http://127.0.0.1:8000/admin/dashboard" class=""><i class="fa-solid fa-gauge-high"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Panel</font></font></a>
+    <a href="http://127.0.0.1:8000/admin/products" class=""><i class="fa-solid fa-box"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Productos</font></font></a>
+    <a href="http://127.0.0.1:8000/admin/orders" class=""><i class="fa-solid fa-clipboard-list"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Pedidos</font></font></a>
+    <a href="http://127.0.0.1:8000/admin/users" class="active"><i class="fa-solid fa-users"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Usuarios</font></font></a>
+</nav>
+
+<script>
+function toggleMobileNav() {
+    const nav  = document.getElementById('mobileNav');
+    const icon = document.getElementById('hambIcon');
+    const open = nav.style.display === 'flex';
+    nav.style.display = open ? 'none' : 'flex';
+    icon.className    = open ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+}
+</script>
+    <main id="main">
+
+        <div class="fade-up">
+            <p class="section-label"><i class="fa-solid fa-users mr-1"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Gestión</font></font></p>
+            <h1 class="section-title"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Usuarios </font></font><span style="color:var(--green)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Registrados</font></font></span></h1>
+        </div>
+
+        <div class="mini-stats">
+            <div class="mini-card fade-up delay-1">
+                <div class="mini-icon" style="background:rgba(59,130,246,.15)">
+                    <i class="fa-solid fa-users" style="color:#60a5fa"></i>
+                </div>
+                <div>
+                    <p class="mini-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Usuarios totales</font></font></p>
+                    <p class="mini-val"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">22</font></font></p>
+                </div>
+            </div>
+            <div class="mini-card fade-up delay-2">
+                <div class="mini-icon" style="background:rgba(34,197,94,.15)">
+                    <i class="fa-solid fa-user-check" style="color:#22C55E"></i>
+                </div>
+                <div>
+                    <p class="mini-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Clientes finales</font></font></p>
+                    <p class="mini-val"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></p>
+                </div>
+            </div>
+            <div class="mini-card fade-up delay-3">
+                <div class="mini-icon" style="background:rgba(250,204,21,.15)">
+                    <i class="fa-solid fa-store" style="color:#facc15"></i>
+                </div>
+                <div>
+                    <p class="mini-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Mayoristas</font></font></p>
+                    <p class="mini-val"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-wrap">
+            <form method="GET" action="http://127.0.0.1:8000/admin/users" style="display:flex;gap:12px;flex:1;flex-wrap:wrap">
+                <div class="search-input-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" name="search" value="" placeholder="Buscar por nombre, email o teléfono..." class="s-input">
+                </div>
+                <button type="submit" class="s-btn"><i class="fa-solid fa-magnifying-glass mr-1"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Buscar</font></font></button>
+                            </form>
+        </div>
+
+        <div class="panel">
+            <div class="panel-head">
+                <h2><i class="fa-solid fa-users" style="color:var(--green)"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Lista de Usuarios</font></font></h2>
+                <span><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">22 usuarios en total</font></font></span>
+            </div>
+
+            <div style="overflow-x:auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">#</font></font></th>
+                            <th><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Usuario</font></font></th>
+                            <th><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Teléfono</font></font></th>
+                            <th><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">WhatsApp</font></font></th>
+                            <th><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Código Acceso</font></font></th>
+                            <th><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Rango</font></font></th>
+                            <th><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Registro</font></font></th>
+                            <th style="text-align:center"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Acciones</font></font></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">25</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Cazas</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">cazas1@gmail.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">10/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;25&#39;,
+                                            name: &#39;Cazas&#39;,
+                                            email: &#39;cazas1@gmail.com&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;10/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/25" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Cazas? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">24</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">María López</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">maria@correo.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">77712345</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">09/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;24&#39;,
+                                            name: &#39;María López&#39;,
+                                            email: &#39;maria@correo.com&#39;,
+                                            phone: &#39;77712345&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;09/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/24" method="POST" onsubmit="return confirm(&#39;¿Eliminar a María López? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">23</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Jorge Pérez</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">jorge@correo.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">09/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;23&#39;,
+                                            name: &#39;Jorge Pérez&#39;,
+                                            email: &#39;jorge@correo.com&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;09/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/23" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Jorge Pérez? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">21</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Steven Torrez</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">stip6@gmail.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;21&#39;,
+                                            name: &#39;Steven Torrez&#39;,
+                                            email: &#39;stip6@gmail.com&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/21" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Steven Torrez? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">20</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Josenuevo Pérez</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">josenuevo@correo.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;20&#39;,
+                                            name: &#39;Josenuevo Pérez&#39;,
+                                            email: &#39;josenuevo@correo.com&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/20" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Josenuevo Pérez? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">19</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Juan Pérez</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">juan@correo.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;19&#39;,
+                                            name: &#39;Juan Pérez&#39;,
+                                            email: &#39;juan@correo.com&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/19" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Juan Pérez? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">18</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Juan Editado</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">nuevo@correo.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">77712345</font></font></td>
+                            <td>
+                                                                    <a href="https://wa.me/77712345" target="_blank" style="color:#4ade80;font-size:13px;display:flex;align-items:center;gap:5px">
+                                        <i class="fa-brands fa-whatsapp"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">77712345
+                                    </font></font></a>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;18&#39;,
+                                            name: &#39;Juan Editado&#39;,
+                                            email: &#39;nuevo@correo.com&#39;,
+                                            phone: &#39;77712345&#39;,
+                                            whatsapp: &#39;77712345&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/18" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Juan Editado? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Administrador</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">admin@example.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;5&#39;,
+                                            name: &#39;Administrador&#39;,
+                                            email: &#39;admin@example.com&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/5" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Administrador? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">6</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Mayorista Ejemplo</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">mayorista@example.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Platino
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;6&#39;,
+                                            name: &#39;Mayorista Ejemplo&#39;,
+                                            email: &#39;mayorista@example.com&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Platino&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/6" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Mayorista Ejemplo? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">7</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Profesor Darrin Harris V</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">efpie96@example.net</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5918062965</font></font></td>
+                            <td>
+                                                                    <a href="https://wa.me/5917773241" target="_blank" style="color:#4ade80;font-size:13px;display:flex;align-items:center;gap:5px">
+                                        <i class="fa-brands fa-whatsapp"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5917773241
+                                    </font></font></a>
+                                                            </td>
+                            <td>
+                                                                    <code style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:2px 8px;border-radius:6px;font-size:11px;color:#e5e7eb">
+                                        729819
+                                    </code>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Oro
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;7&#39;,
+                                            name: &#39;Prof. Darrin Harris V&#39;,
+                                            email: &#39;effie96@example.net&#39;,
+                                            phone: &#39;5918062965&#39;,
+                                            whatsapp: &#39;5917773241&#39;,
+                                            access_code: &#39;729819&#39;,
+                                            rank: &#39;Oro&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/7" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Prof. Darrin Harris V? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">8</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Garrison Cartwright, Doctor en Cirugía Dental</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">goyette.kris@example.org</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5918029340</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Bronce
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;8&#39;,
+                                            name: &#39;Garrison Cartwright DDS&#39;,
+                                            email: &#39;goyette.kris@example.org&#39;,
+                                            phone: &#39;5918029340&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;—&#39;,
+                                            rank: &#39;Bronce&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/8" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Garrison Cartwright DDS? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">9</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Alexandra Kohler</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">elissa.walker@example.net</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <code style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:2px 8px;border-radius:6px;font-size:11px;color:#e5e7eb">
+                                        365020
+                                    </code>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Plata
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;9&#39;,
+                                            name: &#39;Alexandra Kohler&#39;,
+                                            email: &#39;elissa.walker@example.net&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;365020&#39;,
+                                            rank: &#39;Plata&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/9" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Alexandra Kohler? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">10</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Magnus Farrell Sr.</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">lind.emmalee@example.com</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5919875409</font></font></td>
+                            <td>
+                                                                    <span style="color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></span>
+                                                            </td>
+                            <td>
+                                                                    <code style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:2px 8px;border-radius:6px;font-size:11px;color:#e5e7eb">
+                                        923971
+                                    </code>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Platino
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;10&#39;,
+                                            name: &#39;Magnus Farrell Sr.&#39;,
+                                            email: &#39;lind.emmalee@example.com&#39;,
+                                            phone: &#39;5919875409&#39;,
+                                            whatsapp: &#39;&#39;,
+                                            access_code: &#39;923971&#39;,
+                                            rank: &#39;Platino&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/10" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Magnus Farrell Sr.? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">11</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Cydney Klocko</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">petra52@example.org</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">—</font></font></td>
+                            <td>
+                                                                    <a href="https://wa.me/5919186234" target="_blank" style="color:#4ade80;font-size:13px;display:flex;align-items:center;gap:5px">
+                                        <i class="fa-brands fa-whatsapp"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5919186234
+                                    </font></font></a>
+                                                            </td>
+                            <td>
+                                                                    <code style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:2px 8px;border-radius:6px;font-size:11px;color:#e5e7eb">
+                                        396961
+                                    </code>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Oro
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;11&#39;,
+                                            name: &#39;Cydney Klocko&#39;,
+                                            email: &#39;petra52@example.org&#39;,
+                                            phone: &#39;—&#39;,
+                                            whatsapp: &#39;5919186234&#39;,
+                                            access_code: &#39;396961&#39;,
+                                            rank: &#39;Oro&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/11" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Cydney Klocko? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td style="color:var(--muted);font-size:12px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">13</font></font></td>
+                            <td>
+                                <p class="u-name"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Mazie Homenick IV</font></font></p>
+                                <p class="u-email"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">hettinger.rosina@example.net</font></font></p>
+                            </td>
+                            <td><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5911700585</font></font></td>
+                            <td>
+                                                                    <a href="https://wa.me/5913053568" target="_blank" style="color:#4ade80;font-size:13px;display:flex;align-items:center;gap:5px">
+                                        <i class="fa-brands fa-whatsapp"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">5913053568
+                                    </font></font></a>
+                                                            </td>
+                            <td>
+                                                                    <code style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:2px 8px;border-radius:6px;font-size:11px;color:#e5e7eb">
+                                        487446
+                                    </code>
+                                                            </td>
+                            <td>
+                                                                <span class="rank-badge rank-default">
+                                    <i class="fa-solid fa-star" style="font-size:8px"></i><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Plata
+                                </font></font></span>
+                            </td>
+                            <td style="font-size:12px;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">08/06/2026</font></font></td>
+                            <td>
+                                <div style="display:flex;justify-content:center;gap:6px">
+                                
+                                    <button type="button" class="act-btn act-view" title="Ver detalle" onclick="openUserModal({
+                                            id: &#39;13&#39;,
+                                            name: &#39;Mazie Homenick IV&#39;,
+                                            email: &#39;hettinger.rosina@example.net&#39;,
+                                            phone: &#39;5911700585&#39;,
+                                            whatsapp: &#39;5913053568&#39;,
+                                            access_code: &#39;487446&#39;,
+                                            rank: &#39;Plata&#39;,
+                                            created_at: &#39;08/06/2026&#39;
+                                        })">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                    <form action="http://127.0.0.1:8000/admin/users/13" method="POST" onsubmit="return confirm(&#39;¿Eliminar a Mazie Homenick IV? Esta acción no se puede deshacer.&#39;)">
+                                         <input type="hidden" name="_method" value="DELETE">                                        <button type="submit" class="act-btn act-del" title="Eliminar">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+
+                        <div class="pag">
+                                    <span class="pag-btn disabled"><i class="fa-solid fa-chevron-left"></i></span>
+                                                                            <span class="pag-btn active"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">1</font></font></span>
+                                                                                <a href="http://127.0.0.1:8000/admin/users?page=2" class="pag-btn"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">2</font></font></a>
+                                                                        <a href="http://127.0.0.1:8000/admin/users?page=2" class="pag-btn"><i class="fa-solid fa-chevron-right"></i></a>
+                            </div>
+            <p style="text-align:center;font-size:11px;color:var(--muted);padding-bottom:14px"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+                Página 1 de 2
+            </font></font></p>
+                    </div>
+
+    </main>
+</div>
+
+<!-- USUARIO  -->
+<div id="userModal">
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;border-radius:10px;background:rgba(96,165,250,.15);display:flex;align-items:center;justify-content:center">
+                    <i class="fa-solid fa-user" style="color:#60a5fa;font-size:14px"></i>
+                </div>
+                <div>
+                    <p style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Detalle de usuario</font></font></p>
+                    <p id="modal-name" style="font-family:&#39;Syne&#39;,sans-serif;font-size:16px;font-weight:800;color:#fff"></p>
+                </div>
+            </div>
+            <button class="modal-close-btn" onclick="closeUserModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="modal-grid-2">
+                <div class="modal-field">
+                    <p class="modal-field-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">IDENTIFICACIÓN</font></font></p>
+                    <p id="modal-id" class="modal-field-val"></p>
+                </div>
+                <div class="modal-field">
+                    <p class="modal-field-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Registro</font></font></p>
+                    <p id="modal-date" class="modal-field-val"></p>
+                </div>
+            </div>
+
+            <div class="modal-field">
+                <p class="modal-field-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Correo electrónico</font></font></p>
+                <p id="modal-email" class="modal-field-val"></p>
+            </div>
+
+            <div class="modal-grid-2">
+                <div class="modal-field">
+                    <p class="modal-field-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Teléfono</font></font></p>
+                    <p id="modal-phone" class="modal-field-val"></p>
+                </div>
+                <div class="modal-field">
+                    <p class="modal-field-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">WhatsApp</font></font></p>
+                    <p id="modal-whatsapp" class="modal-field-val"></p>
+                </div>
+            </div>
+
+            <div class="modal-grid-2">
+                <div class="modal-field">
+                    <p class="modal-field-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Código de acceso</font></font></p>
+                    <p id="modal-code" class="modal-field-val" style="font-family:monospace"></p>
+                </div>
+                <div class="modal-field">
+                    <p class="modal-field-label"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">Rango</font></font></p>
+                    <p id="modal-rank" class="modal-field-val" style="color:var(--green)"></p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button onclick="closeUserModal()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#9ca3af;border-radius:10px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:&#39;DM Sans&#39;,sans-serif;transition:all .15s" onmouseover="this.style.color=&#39;#fff&#39;" onmouseout="this.style.color=&#39;#9ca3af&#39;"><font dir="auto" style="vertical-align: inherit;"><font dir="auto" style="vertical-align: inherit;">
+                Cerrar
+            </font></font></button>
+        </div>
+
+    </div>
+</div>
+
+<div id="goog-gt-tt" class="VIpgJd-yAWNEb-L7lbkb skiptranslate" style="border-radius: 12px; margin: 0 0 0 -23px; padding: 0; font-family: &#39;Google Sans&#39;, Arial, sans-serif;" data-id=""><div id="goog-gt-vt" class="VIpgJd-yAWNEb-hvhgNd"><div class="VIpgJd-yAWNEb-hvhgNd-Ud7fr"><img src="./users_files/24px.svg" width="24" height="24" alt=""><div class=" VIpgJd-yAWNEb-hvhgNd-IuizWc-i3jM8c " dir="ltr">Texto original</div></div><div class="VIpgJd-yAWNEb-hvhgNd-k77Iif"><div id="goog-gt-original-text" class="VIpgJd-yAWNEb-nVMfcd-fmcmS VIpgJd-yAWNEb-hvhgNd-axAV1"></div></div><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid ltr"><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid-B7I4Od ltr" dir="ltr"><div class="VIpgJd-yAWNEb-hvhgNd-UTujCb">Valora esta traducción</div><div class="VIpgJd-yAWNEb-hvhgNd-eO9mKe">Tu opinión servirá para ayudar a mejorar el Traductor de Google</div></div><div class="VIpgJd-yAWNEb-hvhgNd-xgov5 ltr"><button id="goog-gt-thumbUpButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="Buena traducción" aria-label="Buena traducción" aria-pressed="false"><span id="goog-gt-thumbUpIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7H2v13h16c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM7 18H4V9h3v9zm14-7l-3 7H9V8l4.34-4.34L12 9h9v2z"></path></svg></span><span id="goog-gt-thumbUpIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7v13h11c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM5 7H1v13h4V7z"></path></svg></span></button><button id="goog-gt-thumbDownButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="Mala traducción" aria-label="Mala traducción" aria-pressed="false"><span id="goog-gt-thumbDownIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7h5V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zM17 6h3v9h-3V6zM3 13l3-7h9v10l-4.34 4.34L12 15H3v-2z"></path></svg></span><span id="goog-gt-thumbDownIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zm16 0h4V4h-4v13z"></path></svg></span></button></div></div><div id="goog-gt-votingHiddenPane" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><form id="goog-gt-votingForm" action="http://translate.googleapis.com/translate_voting?client=te_lib" method="post" target="votingFrame" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><input type="text" name="sl" id="goog-gt-votingInputSrcLang"><input type="text" name="tl" id="goog-gt-votingInputTrgLang"><input type="text" name="query" id="goog-gt-votingInputSrcText"><input type="text" name="gtrans" id="goog-gt-votingInputTrgText"><input type="text" name="vote" id="goog-gt-votingInputVote"></form><iframe name="votingFrame" frameborder="0" src="./users_files/saved_resource.html"></iframe></div></div></div><script>
+function openUserModal(u) {
+    document.getElementById('modal-name').textContent    = u.name;
+    document.getElementById('modal-id').textContent      = '#' + u.id;
+    document.getElementById('modal-date').textContent    = u.created_at;
+    document.getElementById('modal-email').textContent   = u.email;
+    document.getElementById('modal-phone').textContent   = u.phone;
+    document.getElementById('modal-code').textContent    = u.access_code;
+    document.getElementById('modal-rank').textContent    = u.rank;
+    document.getElementById('modal-whatsapp').innerHTML  = u.whatsapp
+        ? `<a href="https://wa.me/${u.whatsapp}" target="_blank" style="color:#4ade80;display:flex;align-items:center;gap:5px"><i class="fa-brands fa-whatsapp"></i> ${u.whatsapp}</a>`
+        : '—';
+    document.getElementById('userModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeUserModal() {
+    document.getElementById('userModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+document.getElementById('userModal').addEventListener('click', function(e) {
+    if (e.target === this) closeUserModal();
+});
+// Cerrar con Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeUserModal();
+});
+</script></body></html>
